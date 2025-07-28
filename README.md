@@ -1,10 +1,13 @@
-Unofficial source for openmx https://www.openmx-square.org/openmx_man3.9/node2.html
-Includes files from ELPA https://gitlab.mpcdf.mpg.de/elpa/elpa/-/blob/master/LICENSE
+# Unofficial OpenMX 
 
-Both are GPL
+Includes files from
+* `https://www.openmx-square.org/openmx_man3.9/node2.html`
+* `https://gitlab.mpcdf.mpg.de/elpa/elpa/-/blob/master/LICENSE (ELPA)`
+
+###Both are GPL
 
 main branch is currently a cmake version of the traditional makefile build for openmx 3.9, patch 3.9.9
-
+---
 module load intel/2025.0.1/tbb/latest
 
 module load intel/2025.0.1/umf/latest
@@ -16,16 +19,13 @@ module load intel/2025.0.1/compiler/latest
 module load intel/2025.0.1/mpi/latest
 
 module load intel/2025.0.1/mkl/latest
-
-
+---
 
 are required for execution with mpirun
 
 
 
 https://www.openmx-square.org/openmx_man3.9/node3.html#:~:text=OpenMX%20is%20distributed%20under%20the,the%20future%20development%20of%20OpenMX.
-
-
 
 "OpenMX is distributed under the terms of the GNU General Public License Version 3 (GPLv3) [102]. However, we would like to appreciate your citation of the following papers when you publish a paper using the corresponding functionality in OpenMX, which would be an implicit cooperation for the future development of OpenMX."
 
