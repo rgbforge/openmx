@@ -5,9 +5,12 @@ Includes files from GPL licensed sources:
 * `https://gitlab.mpcdf.mpg.de/elpa/elpa/-/blob/master/LICENSE (ELPA)`
 
 
-main branch is currently a cmake version of the traditional makefile build for openmx 3.9, patch 3.9.9
+
+`main` branch is currently a cmake version of the traditionally packaged makefile build for openmx 3.9, patch 3.9.9
 
 
+modules required for runtime (if used in build_cmake.sh):
+```
 module load intel/2025.0.1/tbb/latest
 
 module load intel/2025.0.1/umf/latest
@@ -19,9 +22,7 @@ module load intel/2025.0.1/compiler/latest
 module load intel/2025.0.1/mpi/latest
 
 module load intel/2025.0.1/mkl/latest
-
-
-are required for execution with mpirun
+```
 
 
 
