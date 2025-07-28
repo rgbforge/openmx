@@ -6,10 +6,15 @@ Both are GPL
 main branch is currently a cmake version of the traditional makefile build for openmx 3.9, patch 3.9.9
 
 module load intel/2025.0.1/tbb/latest
+
 module load intel/2025.0.1/umf/latest
+
 module load intel/2025.0.1/compiler-rt/latest
+
 module load intel/2025.0.1/compiler/latest
+
 module load intel/2025.0.1/mpi/latest
+
 module load intel/2025.0.1/mkl/latest
 
 
