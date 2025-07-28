@@ -5,6 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BUILD_DIR="${SCRIPT_DIR}/build"
 WORK_DIR="${SCRIPT_DIR}/work"
 
+module purge
 module load intel/2025.0.1/tbb/latest
 module load intel/2025.0.1/umf/latest
 module load intel/2025.0.1/compiler-rt/latest
