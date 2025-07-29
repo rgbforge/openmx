@@ -6,8 +6,8 @@ Includes files from GPL licensed sources:
 
 
 
-`main` branch is currently a cmake version of the traditionally packaged makefile build for openmx 3.9, patch 3.9.9
-
+`main` branch uses a cmake version of the traditionally packaged makefile build for openmx 3.9, patch 3.9.9
+`oldbuild` branch uses previous makefile/sed build tooling for 3.9.9
 
 modules required for runtime (if used in build_cmake.sh):
 ```
