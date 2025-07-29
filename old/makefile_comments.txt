@@ -1,0 +1,94 @@
+###################################################################
+#                                                                 #
+#  Please set a proper CC and LIB for the compilation.            #
+#  Examples of CC and LIB on several platforms are shown below.   #
+#                                                                 #
+###################################################################
+
+#
+# Cray-XC30 (Intel Xeon E5-2670 2.6GHz (Sandy-Bridge))
+#
+# before 'make install', do
+# module unload PrgEnv-cray
+# module load PrgEnv-gnu
+# module load fftw
+#
+# CC      = cc -Dxt3 -march=corei7-avx -Ofast -fsignaling-nans -funroll-all-loops -fopenmp -I/work/t-ozaki/ACML5.3.0/gfortran64_mp/include
+# FC      = ftn -Dxt3 -march=corei7-avx -Ofast -fsignaling-nans -funroll-all-loops -fopenmp -mfpmath=sse -I/work/t-ozaki/ACML5.3.0/gfortran64_mp/include
+# LIB     = -L/work/t-ozaki/ACML5.3.0/gfortran64_mp/lib -lacml_mp -Wl,-rpath=/work/t-ozaki/ACML5.3.0/gfortran64_mp/lib -Wl,-rpath=/work/t-ozaki/ACML5.3.0/gfortran64_mp/lib
+#
+
+#
+# mx73-vtpcc01 (Intel(R) Xeon(R) CPU E5-2670 @ 2.60GHz)
+#
+# CC	= /usr/local/openmpi-1.4.5/bin/mpicc -O3 -xHOST -ip -no-prec-div -openmp -I/home/ozaki/include -I/home/ozaki/ACML5.3.0/ifort64_mp/include
+# FC	= /usr/local/openmpi-1.4.5/bin/mpif90 -O3 -xHOST -ip -no-prec-div -openmp 
+# LIB	= -L/usr/local/openmpi-1.4.5/lib -lmpi_f77 -lmpi_f90 /home/ozaki/lib/libfftw3.a -L/home/ozaki/ACML5.3.0/ifort64_mp/lib -lacml_mp -Wl,-rpath=/home/ozaki/ACML5.3.0/ifort64_mp/lib -Wl,-rpath=/home/ozaki/ACML5.3.0/ifort64_mp/lib 
+#
+
+#
+# SGI Altix UV1000 (Intel Xeon E7-8837 (Westmere-EX) [8Core, 24M Cache, 2.66GHz])
+#
+# CC = icc -openmp -O3 -xHOST -I/opt/intel/mkl/include/fftw -I/opt/sgi/mpt/mpt-2.05/include/
+# LIB= -L/opt/sgi/mpt/mpt-2.05/lib/ -L/opt/intel/mkl/lib -mkl=parallel -lifcore -lmpi
+# FC = ifort -openmp -O3 -xHOST -I/opt/intel/mkl/include/fftw -I/opt/sgi/mpt/mpt-2.05/include/
+#
+
+#
+# K-computer at RIKEN
+#
+# CC = mpifccpx -Dkcomp -Kfast,openmp -I/home/apps/fftw/3.2.2/include
+# LIB = -L/home/apps/fftw/3.2.2/lib64 -lfftw3 -SSL2MPI -SSL2BLAMP
+# FC = mpifrtpx -Dkcomp  -Kfast,openmp
+#
+
+#
+# FX10 at Univ. of Tokyo
+#
+# CC = mpifccpx -Dkcomp -Kfast,openmp,SPARC64IXfx -I/usr/local/fftw/3.3/include
+# LIB = -L/usr/local/fftw/3.3/lib64 -lfftw3 -SSL2MPI -SSL2BLAMP
+# FC = mpifrtpx -Dkcomp -Kfast,openmp,SPARC64IXfx
+#
+
+#
+# abacus2 (AMD Opteron 2218, 2.6 GHz)
+#
+# CC	  =/usr/local/mpich-1.2.7p1/bin/mpicc -tp amd64e -O3 -Dnosse -mp -mcmodel=medium -I/usr/local/fftw3/include
+# CC	  =/usr/local/mpich-1.2.7p1/bin/mpicc -tp amd64e -O3 -mcmodel=medium -I/usr/local/fftw3/include
+# FC      =/usr/local/mpich-1.2.7p1/bin/mpif90 -tp amd64e -O3 -mcmodel=medium
+# LIB     = -L/usr/local/fftw3/lib -lfftw3 /usr/local/acml/gnu64/lib/libacml.a /usr/lib64/libg2c.a -pgf90libs
+#
+
+#
+# pcc (Intel Xeon Nehalem-EP, 2.93 GHz)
+#
+# CC = mpicc -O2 -xHOST -ip -no-prec-div -openmp -I/opt/intel/mkl/10.2.2.025/include/fftw
+# FC = mpif90 -O2 -xHOST -ip -no-prec-div -openmp
+# LIB= -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lguide -lpthread -lifcore
+#
+
+#
+# chopin2 (Intel Xeon cluster, Xeon X5482, 3.20GHz)
+#
+# MKLROOT = /opt/intel/mkl/10.0.2.018
+# CC      = /usr/local/mpich-1.2.7p1/bin/mpicc -openmp -O1 -I/usr/local/include
+# FC      = /usr/local/mpich-1.2.7p1/bin/mpif90 -openmp -O1 -I/usr/local/include
+#LIB     = /usr/local/lib/libfftw3.a -L$(MKLROOT)/lib/em64t -Wl,--start-group $(MKLROOT)/lib/em64t/libmkl_lapack.a $(MKLROOT)/lib/em64t/libmkl_intel_lp64.a $(MKLROOT)/lib/em64t/libmkl_intel_thread.a $(MKLROOT)/lib/em64t/libmkl_core.a -Wl,--end-group /opt/intel/fce/10.0.026/lib/libifcore.a
+#
+
+#
+# vsmp (Intel Xeon SMP cluster, Xeon E5-2690 0 @ 2.90GHz)
+#
+# MKLROOT=/opt/intel/mkl
+# CC=/opt/ScaleMP/mpich2/1.4/bin/mpicc -O3 -fopenmp -I/work/duytvt/fftw-3.3.3/include -I/opt/intel/mkl/include
+# FC=/opt/ScaleMP/mpich2/1.4/bin/mpif90 -O3 -fopenmp -I/opt/intel/mkl/include
+# LIB= -L/work/duytvt/fftw-3.3.3/lib -lfftw3 -L/opt/intel/mkl/lib/intel64/ -L/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lgfortran
+#
+
+#
+# s078-065 (Intel Xeon cluster, Xeon(R) CPU 5160  @ 3.00GHz)
+#
+# CC = /opt/MPICH/1.2.7/pgi/bin/mpipgcc -fast -mp -Dnosse  -I/opt/acml5.3.0/ifort64_mp/include -I/opt/fftw-3.3.3/include
+# FC = /opt/MPICH/1.2.7/pgi/bin/mpipgf90 -fast -mp -I/opt/acml5.3.0/ifort64_mp/include
+# LIB= -L/opt/acml5.3.0/ifort64_mp/lib -lacml_mp -liomp5 -Wl,-rpath=/opt/acml5.3.0/ifort64_mp/lib -Wl,-rpath=/opt/acml5.3.0/ifort64_mp/lib -L/opt/fftw-3.3.3/lib -lfftw3 -pgf90libs
+#
