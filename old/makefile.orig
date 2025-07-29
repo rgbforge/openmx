@@ -1,99 +1,3 @@
-###################################################################
-#                                                                 #
-#  Please set a proper CC and LIB for the compilation.            #
-#  Examples of CC and LIB on several platforms are shown below.   #
-#                                                                 #
-###################################################################
-
-#
-# Cray-XC30 (Intel Xeon E5-2670 2.6GHz (Sandy-Bridge))
-#
-# before 'make install', do
-# module unload PrgEnv-cray
-# module load PrgEnv-gnu
-# module load fftw
-#
-# CC      = cc -Dxt3 -march=corei7-avx -Ofast -fsignaling-nans -funroll-all-loops -fopenmp -I/work/t-ozaki/ACML5.3.0/gfortran64_mp/include
-# FC      = ftn -Dxt3 -march=corei7-avx -Ofast -fsignaling-nans -funroll-all-loops -fopenmp -mfpmath=sse -I/work/t-ozaki/ACML5.3.0/gfortran64_mp/include
-# LIB     = -L/work/t-ozaki/ACML5.3.0/gfortran64_mp/lib -lacml_mp -Wl,-rpath=/work/t-ozaki/ACML5.3.0/gfortran64_mp/lib -Wl,-rpath=/work/t-ozaki/ACML5.3.0/gfortran64_mp/lib
-#
-
-#
-# mx73-vtpcc01 (Intel(R) Xeon(R) CPU E5-2670 @ 2.60GHz)
-#
-# CC	= /usr/local/openmpi-1.4.5/bin/mpicc -O3 -xHOST -ip -no-prec-div -openmp -I/home/ozaki/include -I/home/ozaki/ACML5.3.0/ifort64_mp/include
-# FC	= /usr/local/openmpi-1.4.5/bin/mpif90 -O3 -xHOST -ip -no-prec-div -openmp 
-# LIB	= -L/usr/local/openmpi-1.4.5/lib -lmpi_f77 -lmpi_f90 /home/ozaki/lib/libfftw3.a -L/home/ozaki/ACML5.3.0/ifort64_mp/lib -lacml_mp -Wl,-rpath=/home/ozaki/ACML5.3.0/ifort64_mp/lib -Wl,-rpath=/home/ozaki/ACML5.3.0/ifort64_mp/lib 
-#
-
-#
-# SGI Altix UV1000 (Intel Xeon E7-8837 (Westmere-EX) [8Core, 24M Cache, 2.66GHz])
-#
-# CC = icc -openmp -O3 -xHOST -I/opt/intel/mkl/include/fftw -I/opt/sgi/mpt/mpt-2.05/include/
-# LIB= -L/opt/sgi/mpt/mpt-2.05/lib/ -L/opt/intel/mkl/lib -mkl=parallel -lifcore -lmpi
-# FC = ifort -openmp -O3 -xHOST -I/opt/intel/mkl/include/fftw -I/opt/sgi/mpt/mpt-2.05/include/
-#
-
-#
-# K-computer at RIKEN
-#
-# CC = mpifccpx -Dkcomp -Kfast,openmp -I/home/apps/fftw/3.2.2/include
-# LIB = -L/home/apps/fftw/3.2.2/lib64 -lfftw3 -SSL2MPI -SSL2BLAMP
-# FC = mpifrtpx -Dkcomp  -Kfast,openmp
-#
-
-#
-# FX10 at Univ. of Tokyo
-#
-# CC = mpifccpx -Dkcomp -Kfast,openmp,SPARC64IXfx -I/usr/local/fftw/3.3/include
-# LIB = -L/usr/local/fftw/3.3/lib64 -lfftw3 -SSL2MPI -SSL2BLAMP
-# FC = mpifrtpx -Dkcomp -Kfast,openmp,SPARC64IXfx
-#
-
-#
-# abacus2 (AMD Opteron 2218, 2.6 GHz)
-#
-# CC	  =/usr/local/mpich-1.2.7p1/bin/mpicc -tp amd64e -O3 -Dnosse -mp -mcmodel=medium -I/usr/local/fftw3/include
-# CC	  =/usr/local/mpich-1.2.7p1/bin/mpicc -tp amd64e -O3 -mcmodel=medium -I/usr/local/fftw3/include
-# FC      =/usr/local/mpich-1.2.7p1/bin/mpif90 -tp amd64e -O3 -mcmodel=medium
-# LIB     = -L/usr/local/fftw3/lib -lfftw3 /usr/local/acml/gnu64/lib/libacml.a /usr/lib64/libg2c.a -pgf90libs
-#
-
-#
-# pcc (Intel Xeon Nehalem-EP, 2.93 GHz)
-#
-# CC = mpicc -O2 -xHOST -ip -no-prec-div -openmp -I/opt/intel/mkl/10.2.2.025/include/fftw
-# FC = mpif90 -O2 -xHOST -ip -no-prec-div -openmp
-# LIB= -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -lguide -lpthread -lifcore
-#
-
-#
-# chopin2 (Intel Xeon cluster, Xeon X5482, 3.20GHz)
-#
-# MKLROOT = /opt/intel/mkl/10.0.2.018
-# CC      = /usr/local/mpich-1.2.7p1/bin/mpicc -openmp -O1 -I/usr/local/include
-# FC      = /usr/local/mpich-1.2.7p1/bin/mpif90 -openmp -O1 -I/usr/local/include
-#LIB     = /usr/local/lib/libfftw3.a -L$(MKLROOT)/lib/em64t -Wl,--start-group $(MKLROOT)/lib/em64t/libmkl_lapack.a $(MKLROOT)/lib/em64t/libmkl_intel_lp64.a $(MKLROOT)/lib/em64t/libmkl_intel_thread.a $(MKLROOT)/lib/em64t/libmkl_core.a -Wl,--end-group /opt/intel/fce/10.0.026/lib/libifcore.a
-#
-
-#
-# vsmp (Intel Xeon SMP cluster, Xeon E5-2690 0 @ 2.90GHz)
-#
-# MKLROOT=/opt/intel/mkl
-# CC=/opt/ScaleMP/mpich2/1.4/bin/mpicc -O3 -fopenmp -I/work/duytvt/fftw-3.3.3/include -I/opt/intel/mkl/include
-# FC=/opt/ScaleMP/mpich2/1.4/bin/mpif90 -O3 -fopenmp -I/opt/intel/mkl/include
-# LIB= -L/work/duytvt/fftw-3.3.3/lib -lfftw3 -L/opt/intel/mkl/lib/intel64/ -L/opt/intel/composer_xe_2011_sp1.6.233/compiler/lib/intel64 -lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lgfortran
-#
-
-#
-# s078-065 (Intel Xeon cluster, Xeon(R) CPU 5160  @ 3.00GHz)
-#
-# CC = /opt/MPICH/1.2.7/pgi/bin/mpipgcc -fast -mp -Dnosse  -I/opt/acml5.3.0/ifort64_mp/include -I/opt/fftw-3.3.3/include
-# FC = /opt/MPICH/1.2.7/pgi/bin/mpipgf90 -fast -mp -I/opt/acml5.3.0/ifort64_mp/include
-# LIB= -L/opt/acml5.3.0/ifort64_mp/lib -lacml_mp -liomp5 -Wl,-rpath=/opt/acml5.3.0/ifort64_mp/lib -Wl,-rpath=/opt/acml5.3.0/ifort64_mp/lib -L/opt/fftw-3.3.3/lib -lfftw3 -pgf90libs
-#
-
-
 CC    = mpicc -openmp -O3 -I/usr/local/include
 FC    = mpif90 -openmp -O3 -I/usr/local/include
 LIB   = -L/usr/local/lib -lfftw3 -llapack -lblas -lg2c -static
@@ -169,12 +73,7 @@ OBJS    = openmx.o openmx_common.o Input_std.o Inputtools.o \
           elpa1.o solve_evp_real.o solve_evp_complex.o \
 
 
-# PROG    = openmx.exe
-# PROG    = openmx
 
-#-----------------------------------------------------------------------
-# EXX and LIBERI
-#-----------------------------------------------------------------------
 LIBERIDIR = ./liberi-091216/source
 
 OBJS    += exx.o exx_index.o exx_vector.o exx_log.o exx_step1.o exx_step2.o\
@@ -189,15 +88,10 @@ OBJS    += $(LIBERIDIR)/eri.o $(LIBERIDIR)/eri_ll.o $(LIBERIDIR)/eri_sf.o\
 
 CC      += -I$(LIBERIDIR)
 
-#
-# set program name
-# destination directory
-#
+
 
 PROG    = openmx
 DESTDIR = ../work
-
-# OpenMX
 
 All:	$(PROG)
 
@@ -225,9 +119,7 @@ Find_CGrids.o: Find_CGrids.c openmx_common.h
 	$(CC) -c Find_CGrids.c
 readfile.o: readfile.c openmx_common.h
 	$(CC) -c readfile.c
-#
-#
-#
+
 Hamiltonian_Cluster.o: Hamiltonian_Cluster.c openmx_common.h
 	$(CC) -c Hamiltonian_Cluster.c
 Overlap_Cluster.o: Overlap_Cluster.c openmx_common.h
@@ -244,9 +136,7 @@ Hamiltonian_Band_NC.o: Hamiltonian_Band_NC.c openmx_common.h
 	$(CC) -c Hamiltonian_Band_NC.c
 Get_OneD_HS_Col.o: Get_OneD_HS_Col.c openmx_common.h
 	$(CC) -c Get_OneD_HS_Col.c
-#
-#
-#  
+ 
 SetPara_DFT.o: SetPara_DFT.c openmx_common.h
 	$(CC) -c SetPara_DFT.c
 XC_Ceperly_Alder.o: XC_Ceperly_Alder.c openmx_common.h
@@ -259,9 +149,7 @@ XC_PBE.o: XC_PBE.c openmx_common.h
 	$(CC) -c XC_PBE.c
 XC_EX.o: XC_EX.c openmx_common.h
 	$(CC) -c XC_EX.c
-#
-# SCF
-#
+
 
 DFT.o: DFT.c openmx_common.h tran_prototypes.h
 	$(CC) -c DFT.c
@@ -398,9 +286,7 @@ Make_FracCoord.o: Make_FracCoord.c openmx_common.h
 	$(CC) -c Make_FracCoord.c
 Make_InputFile_with_FinalCoord.o: Make_InputFile_with_FinalCoord.c openmx_common.h
 	$(CC) -c Make_InputFile_with_FinalCoord.c
-#
-#
-#
+
 QuickSort.o: QuickSort.c openmx_common.h
 	$(CC) -c QuickSort.c
 Eigen_lapack.o: Eigen_lapack.c openmx_common.h lapack_prototypes.h
@@ -453,9 +339,7 @@ Set_Hamiltonian.o: Set_Hamiltonian.c openmx_common.h
 	$(CC) -c Set_Hamiltonian.c
 Set_Vpot.o: Set_Vpot.c openmx_common.h
 	$(CC) -c Set_Vpot.c
-#
-#
-#
+
 FT_PAO.o: FT_PAO.c openmx_common.h
 	$(CC) -c FT_PAO.c
 FT_NLP.o: FT_NLP.c openmx_common.h
@@ -466,23 +350,17 @@ FT_VNA.o: FT_VNA.c openmx_common.h
 	$(CC) -c FT_VNA.c
 FT_ProductPAO.o: FT_ProductPAO.c openmx_common.h
 	$(CC) -c FT_ProductPAO.c
-#
-#
-#
+
 Divide_Conquer.o: Divide_Conquer.c openmx_common.h
 	$(CC) -c Divide_Conquer.c
 Divide_Conquer_Dosout.o: Divide_Conquer_Dosout.c openmx_common.h
 	$(CC) -c Divide_Conquer_Dosout.c
 Krylov.o: Krylov.c openmx_common.h
 	$(CC) -c Krylov.c
-#
-#
-#
+
 MD_pac.o: MD_pac.c openmx_common.h lapack_prototypes.h
 	$(CC) -c MD_pac.c
-#
-#
-#
+
 iterout.o: iterout.c openmx_common.h
 	$(CC) -c iterout.c
 iterout_md.o: iterout_md.c openmx_common.h
@@ -540,9 +418,7 @@ neb_run.o: neb_run.c openmx_common.h
 neb_check.o: neb_check.c openmx_common.h Inputtools.h 
 	$(CC) -c neb_check.c
 
-#
-#
-#
+
 mimic_sse.o: mimic_sse.c mimic_sse.h
 	$(CC) -c mimic_sse.c
 Make_Comm_Worlds.o: Make_Comm_Worlds.c
@@ -550,11 +426,7 @@ Make_Comm_Worlds.o: Make_Comm_Worlds.c
 Set_Allocate_Atom2CPU.o: Set_Allocate_Atom2CPU.c openmx_common.h
 	$(CC) -c Set_Allocate_Atom2CPU.c
 
-#
-#
-# Maketest, Runtest, Memory_Leak_test, Force_test, Show_DFT_DATA
-#
-#
+
 
 Maketest.o: Maketest.c openmx_common.h Inputtools.h
 	$(CC) -c Maketest.c
@@ -568,30 +440,14 @@ Show_DFT_DATA.o: Show_DFT_DATA.c openmx_common.h Inputtools.h
 	$(CC) -c Show_DFT_DATA.c
 
 
-#
-#
-# install
-#
-#
-
 install: $(PROG)
 	strip $(PROG)
 	cp $(PROG) $(DESTDIR)/$(PROG)
 
-#
-#
-# clean executable and object files 
-#
-#
 
 clean:
 	rm -f $(PROG) $(OBJS) DosMain jx analysis_example esp polB TranMain *.o
 
-#
-#
-# programs for generating DOS from files *.Dos.val and *.Dos.vec
-#
-#
 
 DosMain: DosMain.o Inputtools.o malloc_multidimarray.o Tetrahedron_Blochl.o 
 	$(CC) -o $@ DosMain.o Inputtools.o malloc_multidimarray.o Tetrahedron_Blochl.o -lm 
@@ -602,11 +458,6 @@ DosMain.o :DosMain.c openmx_common.h
 Tetrahedron_Blochl.o : Tetrahedron_Blochl.c
 	$(CC) -o $@ -c Tetrahedron_Blochl.c 
 
-#
-#
-#  exchange interaction coupling constant J between two atoms
-#
-#
 
 jx: jx.o read_scfout.o Eigen_lapack.o 
 	$(CC) jx.o read_scfout.o $(LIB) -lm -o jx
@@ -615,11 +466,6 @@ jx: jx.o read_scfout.o Eigen_lapack.o
 jx.o: jx.c read_scfout.h 
 	$(CC) -c jx.c
 
-#
-#
-# analysis_example
-#
-#
 
 analysis_example: analysis_example.o read_scfout.o
 	$(CC) analysis_example.o read_scfout.o $(LIB)  -lm -o analysis_example
@@ -631,11 +477,7 @@ analysis_example.o: analysis_example.c read_scfout.h
 read_scfout.o: read_scfout.c read_scfout.h 
 	$(CC) -c read_scfout.c
 
-#
-#
-# program for generating EPS from files *.out and *.vhart
-#
-#
+
 
 OBJS_ESP  = esp.o Inputtools.o
 esp:	$(OBJS_ESP)
@@ -644,11 +486,6 @@ esp:	$(OBJS_ESP)
 esp.o : esp.c Inputtools.h
 	$(CC) -o $@ -c esp.c
 
-#
-#
-# check_lead
-#
-#
 
 check_lead: check_lead.o Inputtools.o
 	$(CC) check_lead.o Inputtools.o -lm -o check_lead
@@ -657,22 +494,12 @@ check_lead: check_lead.o Inputtools.o
 check_lead.o: check_lead.c Inputtools.h 
 	$(CC) -c check_lead.c
 
-#
-#
-#  optical conductivity 
-#
-#
 
 OpticalConductivityMain: OpticalConductivityMain.o \
               Inputtools.o  malloc_multidimarray.o
 	$(CC) -o $@   OpticalConductivityMain.o  Inputtools.o  malloc_multidimarray.o -lm 
 	cp OpticalConductivityMain $(DESTDIR)/OpticalConductivityMain
 
-#
-#
-#  electric polarization using Berry's phase
-#
-#
 
 OBJS_polB = polB.o read_scfout.o
 polB:	$(OBJS_polB)
@@ -682,11 +509,6 @@ polB:	$(OBJS_polB)
 polB.o: polB.c read_scfout.h 
 	$(CC) -c polB.c
 
-#
-#
-# test_mpi
-#
-#
 
 test_mpi: test_mpi.o
 	$(CC) test_mpi.o $(LIB) -lm -o test_mpi
@@ -695,12 +517,6 @@ test_mpi: test_mpi.o
 test_mpi.o: test_mpi.c
 	$(CC) -c test_mpi.c
 
-
-#
-#
-# transport calculation using non-equilibrium Green's function method
-#
-#
 
 TranMain_OBJ = \
    TranMain.o TRAN_Read.o Inputtools.o TRAN_Set_Value.o \
@@ -711,8 +527,6 @@ TranMain_OBJ = \
 TranMain: $(TranMain_OBJ)
 	$(CC) $(TranMain_OBJ) $(LIB) -lm -o $@ 
 
-# revised by Y. Xiao for Noncollinear NEGF calculations
-
 TranMain_NC_OBJ = \
    TranMain_NC.o TRAN_Read.o Inputtools.o TRAN_Set_Value.o \
    TRAN_Calc_SurfGreen.o TRAN_Calc_SelfEnergy.o TRAN_Calc_CentGreen.o \
@@ -722,7 +536,7 @@ TranMain_NC_OBJ = \
 TranMain_NC: $(TranMain_NC_OBJ)
 	$(CC) $(TranMain_NC_OBJ) $(LIB) -lm -o $@
 
-# until here by Y. Xiao for Noncollinear NEGF calculations
+
 
 MAIN_TRAN_Display_Gridvalue: MAIN_TRAN_Display_Gridvalue.o TRAN_Read.o TRAN_Print.o
 	$(CC) -o $@  MAIN_TRAN_Display_Gridvalue.o TRAN_Read.o TRAN_Print.o -lm $(LIB)  
